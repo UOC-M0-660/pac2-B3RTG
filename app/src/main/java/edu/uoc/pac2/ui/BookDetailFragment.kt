@@ -1,10 +1,13 @@
 package edu.uoc.pac2.ui
 
+import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
 
@@ -13,6 +16,7 @@ import edu.uoc.pac2.data.Book
  * This fragment is contained in a [BookDetailActivity].
  */
 class BookDetailFragment : Fragment() {
+    private val TAG = "BookDetailFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -28,12 +32,28 @@ class BookDetailFragment : Fragment() {
 
     // TODO: Get Book for the given {@param ARG_ITEM_ID} Book id
     private fun loadBook() {
-        throw NotImplementedError()
+        //val id = intent.getStringExtra(BookDetailFragment.ARG_ITEM_ID)
+        Log.i(TAG, "loadBook()")
+        var currentBook: Book?
+        if (arguments?.containsKey(ARG_ITEM_ID)!!) {
+            AsyncTask.execute {
+                val myapp = (activity?.applicationContext as? MyApplication)
+                currentBook = myapp?.getBooksInteractor()?.getBookById(arguments?.getInt(ARG_ITEM_ID)!!)
+                Log.i(TAG, "loadBook() -> Book Tittle ${currentBook?.title}")
+
+                if(currentBook != null){
+                    initUI(currentBook!!)
+                }
+            }
+        }
+
     }
 
     // TODO: Init UI with book details
     private fun initUI(book: Book) {
-        throw NotImplementedError()
+
+
+
     }
 
     // TODO: Share Book Title and Image URL

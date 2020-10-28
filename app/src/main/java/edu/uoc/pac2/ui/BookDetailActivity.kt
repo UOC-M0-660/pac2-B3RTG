@@ -3,7 +3,9 @@ package edu.uoc.pac2.ui
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import edu.uoc.pac2.R
+import kotlinx.android.synthetic.main.activity_book_detail.*
 
 /**
  * An activity representing a single Book detail screen.
@@ -13,6 +15,14 @@ class BookDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_detail)
+        setSupportActionBar(detail_toolbar)
+
+        fav.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity

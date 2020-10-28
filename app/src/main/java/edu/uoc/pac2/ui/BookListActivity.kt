@@ -1,5 +1,6 @@
 package edu.uoc.pac2.ui
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -52,8 +53,20 @@ class BookListActivity : AppCompatActivity() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         // Init Adapter
-        adapter = BooksListAdapter(emptyList())
+        adapter = BooksListAdapter(emptyList()) {
+            StartDetailActivity(it)
+        }
         recyclerView.adapter = adapter
+    }
+
+    private fun StartDetailActivity(book: Book)
+    {
+        Log.w(TAG, "Clicked item.${book.uid}" )
+
+        val intent = Intent(this, BookDetailActivity::class.java).apply {
+            putExtra(BookDetailFragment.ARG_ITEM_ID, book.uid)
+        }
+        this.startActivity(intent)
     }
 
     // TODO: Get Books and Update UI
