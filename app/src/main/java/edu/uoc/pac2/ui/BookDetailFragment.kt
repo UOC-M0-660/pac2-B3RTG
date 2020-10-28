@@ -11,30 +11,35 @@ import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
 
+import kotlinx.android.synthetic.main.activity_book_detail.*
+import kotlinx.android.synthetic.main.fragment_book_detail.view.*
+
 /**
  * A fragment representing a single Book detail screen.
  * This fragment is contained in a [BookDetailActivity].
  */
 class BookDetailFragment : Fragment() {
     private val TAG = "BookDetailFragment"
-
+    private var currentBook: Book? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_book_detail, container, false)
+        var rootView = inflater.inflate(R.layout.fragment_book_detail, container, false)
+
+        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Get Book for this detail screen
-        loadBook()
+        loadBook(view)
     }
 
 
     // TODO: Get Book for the given {@param ARG_ITEM_ID} Book id
-    private fun loadBook() {
+    private fun loadBook(view: View) {
         //val id = intent.getStringExtra(BookDetailFragment.ARG_ITEM_ID)
         Log.i(TAG, "loadBook()")
-        var currentBook: Book?
+        //var currentBook: Book?
         if (arguments?.containsKey(ARG_ITEM_ID)!!) {
             AsyncTask.execute {
                 val myapp = (activity?.applicationContext as? MyApplication)
@@ -43,10 +48,16 @@ class BookDetailFragment : Fragment() {
 
                 if(currentBook != null){
                     initUI(currentBook!!)
+                    activity?.toolbar_layout?.title=currentBook?.title
+                }
+
+                currentBook?.let {
+                    view.book_author.text = it.author
+                    view.book_date.text = it.publicationDate
+                    view.book_detail.text = it.description
                 }
             }
         }
-
     }
 
     // TODO: Init UI with book details
