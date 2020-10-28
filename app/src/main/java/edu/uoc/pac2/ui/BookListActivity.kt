@@ -1,5 +1,6 @@
 package edu.uoc.pac2.ui
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
-import edu.uoc.pac2.data.BooksInteractor
-import edu.uoc.pac2.data.FirestoreBookData
 
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -59,6 +58,33 @@ class BookListActivity : AppCompatActivity() {
 
     // TODO: Get Books and Update UI
     private fun getBooks() {
+        val myapp = (applicationContext as? MyApplication)
+
+        //1 load data from local db
+        loadBooksFromLocalDb()
+
+        //2 if there is an avaliable connection, load from firestore
+        if (myapp?.hasInternetConnection() == true) {
+            Log.w(TAG, "Internet conection enabled. Load data from firestore.")
+            loadBooksFromFirestore()
+        }
+    }
+
+    // TODO: Load Books from Room
+    private fun loadBooksFromLocalDb() {
+        val myapp = (applicationContext as? MyApplication)
+        var books: List<Book> = listOf()
+
+        AsyncTask.execute {
+           books = myapp?.getBooksInteractor()?.getAllBooks()!!
+            runOnUiThread {
+                adapter.setBooks(books)
+            }
+        }
+    }
+
+    private fun loadBooksFromFirestore()
+    {
         val firestoreDatabase = Firebase.firestore
         firestoreDatabase
                 .collection("books").addSnapshotListener { snapshots, e ->
@@ -69,19 +95,22 @@ class BookListActivity : AppCompatActivity() {
                     }
 
                     var books: List<Book>? = snapshots?.documents?.mapNotNull {it.toObject (Book::class .java)}
+                    Log.w(TAG, "Firestore data loaded.")
                     if (books == null) books = listOf()
 
+                    //3 - Set books and save locally
                     adapter.setBooks(books)
+                    saveBooksToLocalDatabase(books)
                 }
     }
 
-    // TODO: Load Books from Room
-    private fun loadBooksFromLocalDb() {
-        throw NotImplementedError()
-    }
-
-    // TODO: Save Books to Local Storage
     private fun saveBooksToLocalDatabase(books: List<Book>) {
-        throw NotImplementedError()
+        val myapp = (applicationContext as? MyApplication)
+        AsyncTask.execute{
+            myapp?.getBooksInteractor()?.saveBooks(books = books)
+        }
+        runOnUiThread {
+
+        }
     }
 }
