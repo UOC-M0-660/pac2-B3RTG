@@ -1,5 +1,6 @@
 package edu.uoc.pac2.ui
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -13,13 +14,16 @@ import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
 
 import kotlinx.android.synthetic.main.activity_book_detail.*
+import kotlinx.android.synthetic.main.fragment_book_detail.*
 import kotlinx.android.synthetic.main.fragment_book_detail.view.*
 
 /**
  * A fragment representing a single Book detail screen.
  * This fragment is contained in a [BookDetailActivity].
  */
-class BookDetailFragment : Fragment() {
+class BookDetailFragment (
+
+): Fragment() {
     private val TAG = "BookDetailFragment"
     private var currentBook: Book? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -32,12 +36,14 @@ class BookDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Get Book for this detail screen
-        loadBook(view)
+        loadBook()
+
+        activity?.fav?.setOnClickListener { view ->
+           if(currentBook!=null) shareContent(currentBook!!)
+        }
     }
 
-
-    // TODO: Get Book for the given {@param ARG_ITEM_ID} Book id
-    private fun loadBook(view: View) {
+    private fun loadBook() {
         //val id = intent.getStringExtra(BookDetailFragment.ARG_ITEM_ID)
         Log.i(TAG, "loadBook()")
         //var currentBook: Book?
@@ -49,32 +55,34 @@ class BookDetailFragment : Fragment() {
 
                 if(currentBook != null){
                     initUI(currentBook!!)
-                    activity?.toolbar_layout?.title=currentBook?.title
                 }
 
-                currentBook?.let {
-                    view.book_author.text = it.author
-                    view.book_date.text = it.publicationDate
-                    view.book_detail.text = it.description
-                    activity?.runOnUiThread {
-                        Glide.with(this).load(it.urlImage).into(view.book_image)
-                    }
-
-                }
             }
         }
     }
 
-    // TODO: Init UI with book details
     private fun initUI(book: Book) {
-
-
-
+        book.let {
+            book_author.text = it.author
+            book_date.text = it.publicationDate
+            book_detail.text = it.description
+            activity?.runOnUiThread {
+                Glide.with(this).load(it.urlImage).into(book_image)
+            }
+            activity?.toolbar_layout?.title=currentBook?.title
+        }
     }
 
-    // TODO: Share Book Title and Image URL
     private fun shareContent(book: Book) {
-        throw NotImplementedError()
+
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "${book.title}\n${book.urlImage}")
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, "Book info share")
+        startActivity(shareIntent)
     }
 
     companion object {
