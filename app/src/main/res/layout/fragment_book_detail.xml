@@ -2,6 +2,66 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/text_margin">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/book_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/el_juego_de_ender"
+            android:contentDescription="@string/title_book_detail"
+            app:layout_constraintHeight_min="200dp"
+            app:layout_constraintWidth_percent=".4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/book_author"
+            app:layout_constraintVertical_chainStyle="spread"/>
+
+        <TextView
+            android:id="@+id/book_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="?android:attr/textAppearanceLarge"
+            android:textIsSelectable="true"
+            android:text="Orson Scott Card"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/book_date"
+            app:layout_constraintStart_toEndOf="@id/book_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            android:layout_marginLeft="@dimen/text_margin"/>
+
+        <TextView
+            android:id="@+id/book_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="?android:attr/textAppearanceSmall"
+            android:textIsSelectable="true"
+            android:text="15/01/1985"
+            app:layout_constraintTop_toBottomOf="@+id/book_author"
+            app:layout_constraintStart_toEndOf="@id/book_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="@dimen/text_margin"/>
+        <TextView
+            android:id="@+id/book_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            style="?android:attr/textAppearanceSmall"
+            android:textIsSelectable="true"
+            android:text="Description"
+            app:layout_constraintTop_toBottomOf="@id/book_date"
+            app:layout_constraintStart_toEndOf="@id/book_image"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

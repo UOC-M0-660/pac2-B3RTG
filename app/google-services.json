@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "502906316415",
+    "firebase_url": "https://pec2androidavanzado-ec48c.firebaseio.com",
+    "project_id": "pec2androidavanzado-ec48c",
+    "storage_bucket": "pec2androidavanzado-ec48c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502906316415:android:e79a879bee30b70a8e014a",
+        "android_client_info": {
+          "package_name": "edu.uoc.pac2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502906316415-l07fdiq2cq28n4s2htkfq0uhn1435jl3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwBYrnMf555N2V9HZMSzyE80SQv2zUy0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502906316415-l07fdiq2cq28n4s2htkfq0uhn1435jl3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

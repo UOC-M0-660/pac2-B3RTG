@@ -14,7 +14,10 @@ import edu.uoc.pac2.data.Book
  * Adapter for a list of Books.
  */
 
-class BooksListAdapter(private var books: List<Book>) : RecyclerView.Adapter<BooksListAdapter.ViewHolder>() {
+class BooksListAdapter(
+        private var books: List<Book>,
+        private val clickListener: (item: Book) -> Unit
+) : RecyclerView.Adapter<BooksListAdapter.ViewHolder>() {
 
     private val evenViewType = 0
     private val oddViewType = 1
@@ -62,6 +65,9 @@ class BooksListAdapter(private var books: List<Book>) : RecyclerView.Adapter<Boo
         holder.authorView.text = book.author
 
         // TODO: Set View Click Listener
+        holder.view.setOnClickListener {
+            clickListener(book)
+        }
     }
 
     // Returns total items in Adapter
