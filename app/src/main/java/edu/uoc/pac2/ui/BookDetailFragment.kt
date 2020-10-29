@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
@@ -55,6 +56,10 @@ class BookDetailFragment : Fragment() {
                     view.book_author.text = it.author
                     view.book_date.text = it.publicationDate
                     view.book_detail.text = it.description
+                    activity?.runOnUiThread {
+                        Glide.with(this).load(it.urlImage).into(view.book_image)
+                    }
+
                 }
             }
         }

@@ -18,8 +18,10 @@ class BookDetailActivity : AppCompatActivity() {
         setSupportActionBar(detail_toolbar)
 
         fav.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            /*Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()*/
+
+            
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

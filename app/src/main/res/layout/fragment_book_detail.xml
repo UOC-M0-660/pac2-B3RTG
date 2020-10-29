@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="@dimen/text_margin">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,8 @@
             app:layout_constraintBottom_toTopOf="@+id/book_date"
             app:layout_constraintStart_toEndOf="@id/book_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_chainStyle="spread_inside"/>
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            android:layout_marginLeft="@dimen/text_margin"/>
 
         <TextView
             android:id="@+id/book_date"
@@ -46,7 +47,8 @@
             android:text="15/01/1985"
             app:layout_constraintTop_toBottomOf="@+id/book_author"
             app:layout_constraintStart_toEndOf="@id/book_image"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="@dimen/text_margin"/>
         <TextView
             android:id="@+id/book_detail"
             android:layout_width="wrap_content"
@@ -56,7 +58,9 @@
             android:text="Description"
             app:layout_constraintTop_toBottomOf="@id/book_date"
             app:layout_constraintStart_toEndOf="@id/book_image"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
