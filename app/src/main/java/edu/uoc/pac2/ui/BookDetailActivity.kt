@@ -15,6 +15,7 @@ class BookDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        overridePendingTransition(R.anim.translate_in_bottom, R.anim.translate_in_bottom)
         setContentView(R.layout.activity_book_detail)
         setSupportActionBar(detail_toolbar)
 
@@ -55,12 +56,14 @@ class BookDetailActivity : AppCompatActivity() {
 
     // TODO: Override finish animation for actionbar back arrow
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        overridePendingTransition(R.anim.translate_out_top, R.anim.translate_in_top)
         return super.onOptionsItemSelected(item)
     }
 
     // TODO: Override finish animation for phone back button
     override fun onBackPressed() {
         super.onBackPressed()
+        overridePendingTransition(R.anim.translate_out_top, R.anim.translate_in_top)
     }
 
 }

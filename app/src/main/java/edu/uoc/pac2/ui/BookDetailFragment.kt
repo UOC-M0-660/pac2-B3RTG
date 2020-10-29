@@ -1,6 +1,7 @@
 package edu.uoc.pac2.ui
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
@@ -68,8 +71,24 @@ class BookDetailFragment (
             book_detail.text = it.description
             activity?.runOnUiThread {
                 Glide.with(this).load(it.urlImage).into(book_image)
+                //Glide.with(this).load(it.urlImage).into(activity?.toolbar_layout?.background)
+
+                Glide.with(this).load(it.urlImage).into(object :
+                        CustomTarget<Drawable>() {
+                            override fun onLoadCleared(placeholder: Drawable?) {
+
+                            }
+
+                            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                                activity?.toolbar_layout?.background =  resource
+                            }
+
+                        })
+
             }
             activity?.toolbar_layout?.title=currentBook?.title
+
+
         }
     }
 
